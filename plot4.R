@@ -20,7 +20,7 @@ epc <- data %>% mutate(datetime = dmy_hms(paste(Date, Time))) %>% select(-c(Date
 png("plot4.png")
 
 ## set the layout for 4 plots
-par(mfrow = c(2,2), mar = c(6,4,2,2))
+par(mfrow = c(2,2))
 
 ## render a plot of GAP values over time
 with(epc, plot(datetime, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)"))
