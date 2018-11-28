@@ -14,31 +14,31 @@ library(plyr)
 library(dplyr)
 
 ## replace Date and Time columns with correctly converted DateTime
-epc <- data %>% mutate(Datetime = dmy_hms(paste(Date, Time))) %>% select(-c(Date, Time))
+epc <- data %>% mutate(datetime = dmy_hms(paste(Date, Time))) %>% select(-c(Date, Time))
 
 ## open png device
 png("plot4.png")
 
 ## set the layout for 4 plots
-par(mfrow = c(2,2), mar = c(4,4,2,2))
+par(mfrow = c(2,2), mar = c(6,4,2,2))
 
 ## render a plot of GAP values over time
-with(epc, plot(Datetime, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)"))
+with(epc, plot(datetime, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)"))
 
 ## render a plot of Voltage values over time
-with(epc, plot(Datetime, Voltage, type = "l"))
+with(epc, plot(datetime, Voltage, type = "l"))
 
 ## render a plot of 3 sub metering levels over time
-plot(epc$Datetime, epc$Sub_metering_1, type = "l", xlab="", ylab = "Energy sub metering")
-lines(epc$Datetime, epc$Sub_metering_2, col = "red")
-lines(epc$Datetime, epc$Sub_metering_3, col = "blue")
+plot(epc$datetime, epc$Sub_metering_1, type = "l", xlab="", ylab = "Energy sub metering")
+lines(epc$datetime, epc$Sub_metering_2, col = "red")
+lines(epc$datetime, epc$Sub_metering_3, col = "blue")
 
 ## add a legend
 legend("topright", legend = c("Sub_metering1", "Sub_metering2", "Sub_metering3"), 
        col = c("black", "red","blue"), lty = 1)
 
 ## render a plot of GRP values over time
-with(epc, plot(Datetime, Global_reactive_power, type = "l"))
+with(epc, plot(datetime, Global_reactive_power, type = "l"))
 
 dev.off()
 
